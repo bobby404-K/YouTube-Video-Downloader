@@ -3,7 +3,7 @@
 A simple Python script that downloads YouTube videos in the best available quality using [`yt-dlp`](https://github.com/yt-dlp/yt-dlp), merging separate video and audio streams with FFmpeg.
 
 ---
-ffff
+fff
 ## Features
 
 - Downloads the best available video and audio streams
