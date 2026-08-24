@@ -4,7 +4,7 @@ A simple Python script that downloads YouTube videos in the best available quali
 
 --- 
 
-jijijijiji
+jijijijij
 
 ## Features
 
