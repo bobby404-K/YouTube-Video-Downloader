@@ -1,11 +1,24 @@
 import yt_dlp
 
 
-def download_videos(urls, is_playlist):
-    ydl_opts = {
-        "format": "bestvideo+bestaudio/best",
-        "noplaylist": not is_playlist,
-    }
+def download_videos(urls, is_playlist, download_audio):
+    if download_audio:
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "noplaylist": not is_playlist,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "192",
+                }
+            ],
+        }
+    else:
+        ydl_opts = {
+            "format": "bestvideo+bestaudio/best",
+            "noplaylist": not is_playlist,
+        }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download(urls)
@@ -14,6 +27,9 @@ def download_videos(urls, is_playlist):
 def main():
     choice = input("Is this a playlist? (y/n): ").strip().lower()
     is_playlist = choice == "y"
+
+    media_choice = input("Download audio or video? (a/v): ").strip().lower()
+    download_audio = media_choice == "a"
 
     if is_playlist:
         url = input("Enter the playlist URL: ").strip()
@@ -28,7 +44,7 @@ def main():
         print("No valid URL(s) provided. Exiting.")
         return
 
-    download_videos(urls, is_playlist)
+    download_videos(urls, is_playlist, download_audio)
 
 
 if __name__ == "__main__":
